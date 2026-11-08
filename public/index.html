@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Model Y Wrap Studio</title>
+  <link rel="stylesheet" href="/style.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <header><div class="brand"><img class="brand-logo" src="/songlabslogo.png" alt="SONG Labs" width="80" height="80"><div><p class="eyebrow">LOCAL DESIGN LAB / ORIGINAL MODEL Y</p><h1>Wrap Studio<span class="dot">.</span></h1></div></div><span class="badge">No Tesla login needed</span></header>
+  <main class="studio">
+    <aside class="panel controls">
+      <h2>01 / Design</h2>
+      <label>Project name<input id="name" maxlength="26" value="My Wrap" autocomplete="off"></label>
+      <div class="row"><label>Base color<input id="base" type="color" value="#192a45"></label><label>Accent<input id="accent" type="color" value="#56d6cf"></label></div>
+      <label>Pattern<select id="pattern"><option value="solid">Solid</option><option value="stripes">Diagonal stripes</option><option value="dots">Dots</option><option value="gradient">Gradient</option></select></label>
+      <label>Pattern spacing<input id="spacing" type="range" min="20" max="300" value="100"></label>
+      <h3>Artwork layers</h3>
+      <p class="hint">Add your own images or text. Drag a layer on the template to position it. Layers are clipped to the body panels.</p>
+      <div class="row"><button id="add-image" disabled>Add image</button><button id="add-text" disabled>Add text</button></div>
+      <input id="image-file" type="file" accept="image/png,image/jpeg,image/webp" hidden>
+      <label>Selected layer<select id="layers"><option value="">No layers yet</option></select></label>
+      <fieldset id="layer-controls" disabled>
+        <label id="text-label">Text<input id="layer-text" maxlength="100"></label>
+        <label id="color-label">Text color<input id="layer-color" type="color"></label>
+        <div class="row"><label>X<input id="layer-x" type="number" min="-1024" max="2048"></label><label>Y<input id="layer-y" type="number" min="-1024" max="2048"></label></div>
+        <label>Width / text size<input id="layer-width" type="range" min="10" max="2048"></label>
+        <label>Rotation<input id="layer-rotation" type="range" min="-180" max="180"></label>
+        <label>Opacity<input id="layer-opacity" type="range" min="0" max="1" step="0.05"></label>
+        <div class="row"><button id="duplicate-layer">Duplicate</button><button id="remove-layer">Remove</button></div>
+      </fieldset>
+    </aside>
+    <section class="preview panel">
+      <div class="section-heading"><h2>02 / Panel preview</h2><label class="inline"><input id="guides" type="checkbox" checked> Show template guides</label></div>
+      <canvas id="preview" width="1024" height="1024" aria-label="Model Y unfolded body-panel preview"></canvas>
+      <p class="hint">This is the official unfolded texture layout, not a 3D preview. Confirm placement on your car in Paint Shop. Guides and selection marks are never exported.</p>
+      <div class="row"><button id="undo" disabled>Undo</button><button id="redo" disabled>Redo</button><button id="reset">New design</button></div>
+      <p id="status" role="status" aria-live="polite">Loading the official Model Y template...</p>
+    </section>
+    <aside class="panel library">
+      <h2>03 / Save &amp; send</h2>
+      <button id="save" class="primary" disabled>Save project</button>
+      <label>Saved projects<select id="saved"><option value="">Choose a project</option></select></label>
+      <button id="load" disabled>Open selected project</button>
+      <div class="row"><button id="backup" disabled>Backup JSON</button><button id="import">Import JSON</button></div>
+      <input id="project-file" type="file" accept=".json,application/json" hidden>
+      <hr>
+      <label>PNG resolution<select id="resolution"><option value="1024">1024 x 1024 (best detail)</option><option value="512">512 x 512 (smaller file)</option></select></label>
+      <button id="export" class="primary" disabled>Export &amp; send to phone</button>
+      <p class="hint">Validated PNG, max 1 MB. Transfer links expire after 1 hour or when the server restarts.</p>
+      <section id="transfer" hidden>
+        <p id="export-info"></p>
+        <p id="export-stale" class="hint" hidden>Design changed since this export. Export again to send your latest changes.</p>
+        <a id="download" class="button" download>Download PNG</a>
+        <button id="email">Email / share PNG</button>
+        <p id="email-help" class="hint">Share directly when supported, or download and attach the PNG to an email. Email links are not attachments.</p>
+        <label>Computer's Wi-Fi address<select id="network"></select></label>
+        <img id="qr" alt="Scan to download your wrap on your phone" width="240" height="240">
+        <a id="phone-link" target="_blank" rel="noopener"></a>
+        <p class="hint">Phone and computer must be on the same trusted Wi-Fi. Use your Wi-Fi adapter's address if VPN or virtual adapters also appear.</p>
+        <button id="copy-link">Copy phone link</button>
+        <button id="revoke">Revoke this link</button>
+      </section>
+      <details><summary>Android &amp; iPhone download help</summary><p>Allow Node.js through Windows Firewall on <strong>private networks only</strong>. Guest Wi-Fi, VPNs, and client isolation may block transfers.</p><p><strong>Android:</strong> scan the QR code with your camera or Google Lens, open the link in Chrome, and tap <strong>Download PNG</strong>. In Tesla, open <strong>Creations &rarr; Wrap &rarr; Upload</strong> and select the PNG from <strong>Downloads</strong>. If the picker only shows photos, use its Browse or Files option if available, or open the PNG in Files and save/copy it to Pictures so it appears in your photo picker.</p><p><strong>iPhone:</strong> save to Files, or press and hold the wrap image to save to Photos. Then select the PNG in Tesla Upload.</p><p>Direct file sharing may be unavailable on local HTTP. Download PNG works without it. Sending the PNG as an email attachment also works on either platform.</p></details>
+    </aside>
+  </main>
+  <footer>Original Model Y template from <a href="https://github.com/teslamotors/custom-wraps/tree/master/modely" target="_blank" rel="noopener">Tesla's official repository</a>. Independent local tool; not affiliated with Tesla.</footer>
+</body>
+</html>
